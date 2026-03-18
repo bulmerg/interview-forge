@@ -1,0 +1,59 @@
+---
+description: Flashcard app project context — stack, structure, data model, views, styling
+alwaysApply: true
+---
+
+# FlashForge Study Deck — Project Context
+
+## Project
+
+Local-first interview flashcards app: import CSV decks, filter by tags, study with spaced repetition (SRS), browse cards, view analytics and weak areas, and run an "interview simulation" with N random prompts.
+
+- **Name**: FlashForge Pro / flashforge-study-deck (package name: `flashforge-decks-v2` in code).
+- **Entry**: `index.html` → `src/main.jsx` → `App` from `src/App.jsx`. Single global CSS: `src/styles.css`.
+
+## Stack
+
+- **React 18** (no router); **Vite 5** with `@vitejs/plugin-react`. ES modules, no TypeScript.
+- **No backend**: all state in React; persistence via `localStorage` key `flashforge-decks-v2`.
+- **Sample data**: CSV files in `public/data/` — `batch1.csv`, `batch2.csv`, `batch3.csv` (four-column: front, back, why, tags). Fetched at runtime if no saved deck.
+
+## Repo structure
+
+- `src/App.jsx` — single file app: all state, helpers, and UI (sidebar, hero, content grid; tag panel; study / browse / analytics / simulate views).
+- `src/main.jsx` — mounts `App` into `#root`, imports `styles.css`.
+- `src/styles.css` — one CSS file; design tokens in `:root`, utility and component classes, no CSS modules.
+
+## Data model
+
+- **Card**: `id`, `front`, `back`, `why`, `tags` (array), `source`, `status` ('new' | 'review' | 'know'), `difficulty` (1–5), `stats` (seen, correct, hard, again), `srs` (interval, ease, reps, lapses, dueAt, lastReviewedAt), `history`, `starred`.
+- **CSV format**: header `Front,Back,Why,Tags`; cells may be quoted; tags space-separated. Parsing: `parseDeckCsv`, `parseFourColumnLine`, `parseTagString`; dedupe by `front||back`; shape normalized with `ensureCardShape`.
+- **Filtering**: `cardMatches(card, includeTags, excludeTags, search, dueOnly, difficultyFilter)`. Filtered list can be shuffled by `shuffleSeed`. Study uses `dueOnly` when in study view.
+
+## State (App)
+
+- **Deck**: `cards`, `deckName`; import from paste (`sourceText`, `sourceName`) or file upload; optional `loadSamples()`.
+- **Filters**: `includeTags`, `excludeTags`, `search`, `dueOnly`, `difficultyFilter`, `shuffleSeed`.
+- **UI**: `viewMode` ('study' | 'browse' | 'analytics' | 'simulate'), `currentIndex`, `flipped`, `simCount`, `message`.
+- **Derived**: `filteredCards`, `activeCard = filteredCards[currentIndex]`, `stats`, `tags`, `groupedTags`, `tagPerformance`, `weakCards`, `simulationCards`.
+
+## Views
+
+- **Study**: `StudyView` — one card; question always visible; when `flipped` show answer block (Answer + optional why-box) below with small gap (`.answer-block`); meta (Seen, Correct, Ease) always at bottom; Prev/Reveal/Skip; Again/Hard/Good/Easy; Easier / Star / Harder. Card is a `<button class="flashcard">` with `.flashcard-inner`.
+- **Browse**: `BrowserView` — list of `filteredCards` in `.browser-list` with question, answer, why, meta.
+- **Analytics**: `AnalyticsView` — weak areas by tag, most missed cards, `TagGraph` (SVG) with `groupedTags` and `tagPerformance`.
+- **Simulate**: `SimulationView` — N random cards (8/12/20); each card has reveal/hide answer; uses same filter base, different shuffle.
+
+## Styling
+
+- **Tokens**: `--bg`, `--panel`, `--line`, `--text`, `--muted`, `--accent`, `--accent-2`, `--success`, `--warn`, `--danger`, `--shadow`; font Inter.
+- **Layout**: `.app-shell` (sidebar 360px + main); `.content-grid` (tag panel 370px + content); panels use `.glass` (backdrop blur, border, shadow).
+- **Card**: `.flashcard` (min-height 510px, padding 28px), `.flashcard-inner` (flex column), `.answer-block` (margin-top 12px), `.card-meta`, `.why-box`, `.meta-grid.compact-study`, `.review-grid` (4 cols). No separate front/back faces; question always on top, answer conditionally below.
+- **Tags**: `.tag-panel`, `.tag-group-block`, `.tag-card` with include/exclude states; `.filter-chip.include` / `.filter-chip.exclude`.
+
+## Conventions
+
+- All app logic and components live in `App.jsx` (no extra component files).
+- Use existing CSS classes; add new ones in `styles.css` with same token and naming style.
+- Card identity: `card.id` (from import: `sourceName-index-slugify(front)`). Updates: immutable-style `setCards(prev => prev.map(...))`.
+- SRS: `calculateSrs(previousSrs, 'again'|'hard'|'good'|'easy')` returns next interval/ease/dueAt; review handler updates stats and history.

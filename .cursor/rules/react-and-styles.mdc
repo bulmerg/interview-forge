@@ -1,0 +1,21 @@
+---
+description: React and CSS conventions for flashcard app
+globs: src/**/*.jsx, src/**/*.css
+alwaysApply: false
+---
+
+# React & styles
+
+## React (App.jsx)
+
+- Functional components only; hooks: `useState`, `useEffect`, `useMemo`.
+- No router; view switching via `viewMode` and conditional render (`viewMode === 'study' && <StudyView ... />`).
+- Study card: single column layout — question always visible; answer and why-box only when `flipped === true`; keep meta grid (Seen, Correct, Ease) always visible below. Use `.answer-block` with small top margin (e.g. 12px), not a separate overlapping "back face".
+- Props: pass callbacks and primitives (e.g. `onFlip`, `flipped`, `activeCard`). No prop drilling beyond one level for view-specific handlers.
+
+## CSS (styles.css)
+
+- Use `:root` variables for colors and shadow; avoid hardcoded hex in new rules.
+- Class names: BEM-like (e.g. `flashcard-inner`, `answer-block`, `meta-grid`, `compact-study`). No inline styles except for dynamic values (e.g. bar width, SVG).
+- Responsive: existing breakpoints at 1320px, 1180px, 760px for grids and shell; new layout changes should consider these.
+- Panel/chrome: `.glass` for panels; `.panel-header`, `.button-row.spread`, `.top-gap` for spacing.
