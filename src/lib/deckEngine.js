@@ -78,6 +78,7 @@ function looksLikeDeckHeader(cells) {
 }
 
 function parseIntrinsicDifficulty(rawValue) {
+  if (rawValue === null || rawValue === undefined || String(rawValue).trim() === '') return null
   const n = Number(rawValue)
   if (!Number.isFinite(n)) return null
   return clampDifficulty(Math.round(n))
