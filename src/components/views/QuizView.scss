@@ -1,0 +1,71 @@
+.quiz-card {
+  position: relative;
+  min-height: 400px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(19, 31, 57, 0.96), rgba(9, 18, 35, 0.99));
+  border-radius: 30px;
+  padding: 28px;
+  color: var(--text);
+  text-align: left;
+  overflow: hidden;
+}
+
+.quiz-card .flashcard-inner {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.quiz-card .glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 999px;
+  filter: blur(45px);
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.quiz-context {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.quiz-prompt {
+  margin: 12px 0 0;
+  font-size: 1rem;
+  color: var(--accent-2);
+}
+
+.quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+  max-width: 42ch;
+}
+
+.quiz-input {
+  margin-top: 4px;
+}
+
+.quiz-result {
+  margin-top: 20px;
+}
+
+.quiz-feedback.correct {
+  color: var(--success);
+  font-size: 1.1rem;
+}
+
+.quiz-feedback.wrong {
+  color: var(--text);
+}
+
+.quiz-feedback.wrong strong {
+  color: var(--warn);
+}
+

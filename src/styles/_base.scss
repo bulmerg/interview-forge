@@ -1,0 +1,74 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(110, 168, 254, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(142, 240, 218, 0.12), transparent 22%),
+    linear-gradient(180deg, #07101d 0%, #091427 100%);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.08;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin-bottom: 8px;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+h4 {
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.74rem;
+  color: var(--accent-2);
+  margin-bottom: 10px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.9rem;
+}
+
+.top-gap {
+  margin-top: 16px;
+}
+

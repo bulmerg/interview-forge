@@ -1,0 +1,16 @@
+.simulation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: auto;
+  max-height: calc(100vh - 230px);
+  padding-right: 4px;
+}
+
+.simulation-card {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+

@@ -1,0 +1,65 @@
+.expandable-text p {
+  margin: 10px 0;
+}
+
+.ellipsis-btn {
+  margin-left: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--accent-2);
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ellipsis-btn:hover {
+  color: #ffffff;
+}
+
+.text-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(2, 7, 18, 0.78);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.text-modal {
+  width: min(760px, 100%);
+  max-height: min(80vh, 860px);
+  overflow: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: linear-gradient(180deg, rgba(19, 31, 57, 0.98), rgba(9, 18, 35, 0.99));
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
+}
+
+.text-modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  background: rgba(9, 18, 35, 0.78);
+}
+
+.text-modal-header h4 {
+  margin: 0;
+}
+
+.text-modal-content {
+  padding: 18px;
+}
+
+.text-modal-content p {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.55;
+}

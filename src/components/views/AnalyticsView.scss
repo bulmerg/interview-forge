@@ -1,0 +1,69 @@
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.analytics-card {
+  padding: 14px;
+  border-radius: 20px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+}
+
+.analytics-card.span-2 {
+  grid-column: span 2;
+}
+
+.weak-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weak-row {
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.weak-metrics {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bar {
+  flex: 1;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.bar > div {
+  height: 100%;
+  background: linear-gradient(90deg, #ff8d8d, #ffcf70, #8ef0da);
+  border-radius: inherit;
+}
+
+.missed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: auto;
+  max-height: calc(100vh - 230px);
+  padding-right: 4px;
+}
+
+.missed-card {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+

@@ -1,0 +1,13 @@
+.import-panel {
+  padding: 20px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.import-box {
+  padding: 14px;
+  border-radius: 20px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+}

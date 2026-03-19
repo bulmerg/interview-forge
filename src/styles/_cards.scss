@@ -1,0 +1,130 @@
+.flashcard {
+  position: relative;
+  min-height: 510px;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(19, 31, 57, 0.96), rgba(9, 18, 35, 0.99));
+  border-radius: 30px;
+  padding: 28px;
+  color: var(--text);
+  cursor: default;
+  text-align: left;
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(45px);
+  opacity: 0.28;
+}
+
+.glow-a {
+  width: 200px;
+  height: 200px;
+  background: rgba(110, 168, 254, 0.75);
+  top: -50px;
+  right: -30px;
+}
+
+.glow-b {
+  width: 180px;
+  height: 180px;
+  background: rgba(142, 240, 218, 0.55);
+  bottom: -50px;
+  left: -20px;
+}
+
+.flashcard-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0;
+}
+
+.flashcard-inner h4 {
+  margin-top: 12px;
+  max-width: 54ch;
+  font-size: 1.55rem;
+}
+
+.answer-block {
+  margin-top: 12px;
+}
+
+.answer-block p {
+  color: #deebff;
+  line-height: 1.7;
+}
+
+.flashcard-inner .hint {
+  margin-top: auto;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.compact-study {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.review-btn {
+  border-radius: 20px;
+  padding: 14px 12px;
+  text-align: center;
+}
+
+.review-btn span {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.review-btn.again {
+  background: rgba(255, 141, 141, 0.12);
+  border-color: rgba(255, 141, 141, 0.3);
+}
+
+.review-btn.hard {
+  background: rgba(255, 207, 112, 0.12);
+  border-color: rgba(255, 207, 112, 0.3);
+}
+
+.review-btn.good {
+  background: rgba(110, 168, 254, 0.12);
+  border-color: rgba(110, 168, 254, 0.3);
+}
+
+.review-btn.easy {
+  background: rgba(115, 226, 167, 0.12);
+  border-color: rgba(115, 226, 167, 0.3);
+}
+
+.difficulty-main-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.difficulty-main-range {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.difficulty-range-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--accent-2);
+}
+

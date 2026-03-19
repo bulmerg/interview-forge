@@ -1,0 +1,39 @@
+.hero {
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.sidebar-toggle {
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+
+.segmented {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wrap-tabs {
+  flex-wrap: wrap;
+}
+
+.seg {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.seg.active {
+  background: rgba(110, 168, 254, 0.18);
+  color: var(--text);
+}
+

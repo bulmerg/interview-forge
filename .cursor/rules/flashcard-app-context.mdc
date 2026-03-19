@@ -39,7 +39,7 @@ Local-first interview flashcards app: import CSV decks, filter by tags, study wi
 
 ## Views
 
-- **Study**: `StudyView` — one card; question always visible; when `flipped` show answer block (Answer + optional why-box) below with small gap (`.answer-block`); meta (Seen, Correct, Ease) always at bottom; Prev/Reveal/Skip; Again/Hard/Good/Easy; Easier / Star / Harder. Card is a `<button class="flashcard">` with `.flashcard-inner`.
+- **Study**: `StudyView` — one card; question always visible; when `flipped` show answer block (Answer + optional why-box) below with small gap (`.answer-block`); meta (Seen, Correct, Ease) always at bottom; Prev/Reveal/Next; Again/Hard/Good/Easy; Easier / Star / Harder. Card is a `<button class="flashcard">` with `.flashcard-inner`.
 - **Browse**: `BrowserView` — list of `filteredCards` in `.browser-list` with question, answer, why, meta.
 - **Analytics**: `AnalyticsView` — weak areas by tag, most missed cards, `TagGraph` (SVG) with `groupedTags` and `tagPerformance`.
 - **Simulate**: `SimulationView` — N random cards (8/12/20); each card has reveal/hide answer; uses same filter base, different shuffle.
