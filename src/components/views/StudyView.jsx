@@ -107,28 +107,17 @@ export default function StudyView({
           </div>
 
           <div className="review-grid top-gap">
-            <button className="review-btn again" onClick={() => onReview('again')}>Again<br /><span>15 min reset</span></button>
-            <button className="review-btn hard" onClick={() => onReview('hard')}>Hard<br /><span>slower growth</span></button>
-            <button className="review-btn good" onClick={() => onReview('good')}>Good<br /><span>normal spacing</span></button>
-            <button className="review-btn easy" onClick={() => onReview('easy')}>Easy<br /><span>longer gap</span></button>
+            <button className="review-btn again" onClick={() => onReview('again')} title="Forgot — reset interval to 15 min">Again</button>
+            <button className="review-btn hard" onClick={() => onReview('hard')} title="Struggled — slower interval growth">Hard</button>
+            <button className="review-btn good" onClick={() => onReview('good')} title="Solid recall — normal spacing">Good</button>
+            <button className="review-btn easy" onClick={() => onReview('easy')} title="Effortless — longer gap before next review">Easy</button>
           </div>
-          {!isFocusMode ? (
-            <p className="muted small">
-            Again = forgot, Hard = struggled, Good = solid recall, Easy = effortless recall.
-            <InfoHint text="These grades change future due dates and the card's ease/personal difficulty profile." />
-            </p>
-          ) : null}
 
           {!isFocusMode ? (
-            <div className="difficulty-main-bar top-gap">
-              <div className="difficulty-main-range">
-                <div className="muted small">
-                  Difficulty range
-                  <InfoHint text="Current filter target in Build Study Set. Cards outside this range are hidden from the active set." />
-                </div>
-                <div className="difficulty-range-title">{difficultyTargetMin}–{difficultyTargetMax}</div>
-              </div>
-              <button className="btn" onClick={onStar}>Star / unstar</button>
+            <div className="study-bottom-bar top-gap">
+              <button className="btn smallish" onClick={onStar}>
+                {activeCard.starred ? '★ Starred' : '☆ Star'}
+              </button>
             </div>
           ) : null}
         </>

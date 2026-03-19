@@ -1,7 +1,7 @@
 .tag-groups-scroll {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   max-height: calc(100vh - 250px);
   overflow: auto;
   padding-right: 4px;
@@ -10,9 +10,9 @@
 .active-filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  min-height: 28px;
-  margin-bottom: 14px;
+  gap: 6px;
+  min-height: 24px;
+  margin-bottom: 10px;
 }
 
 .filter-chip {
@@ -42,10 +42,10 @@
 }
 
 .tag-group-block {
-  padding: 14px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .tag-group-title {
@@ -91,7 +91,7 @@
 .tag-cloud {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tag-card {
@@ -110,10 +110,11 @@
 }
 
 .tag-main {
-  padding: 10px 12px;
+  padding: 8px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.9rem;
 }
 
 .tag-minus {

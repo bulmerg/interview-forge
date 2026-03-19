@@ -2,10 +2,10 @@
   position: relative;
   min-height: 510px;
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   background: linear-gradient(180deg, rgba(19, 31, 57, 0.96), rgba(9, 18, 35, 0.99));
   border-radius: 30px;
-  padding: 28px;
+  padding: 32px;
   color: var(--text);
   cursor: default;
   text-align: left;
@@ -49,7 +49,7 @@
 }
 
 .answer-block {
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 .answer-block p {
@@ -80,13 +80,9 @@
 
 .review-btn {
   border-radius: 20px;
-  padding: 14px 12px;
+  padding: 12px 10px;
   text-align: center;
-}
-
-.review-btn span {
-  color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.92rem;
 }
 
 .review-btn.again {
@@ -109,22 +105,9 @@
   border-color: rgba(115, 226, 167, 0.3);
 }
 
-.difficulty-main-bar {
+.study-bottom-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.difficulty-main-range {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.difficulty-range-title {
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: var(--accent-2);
+  gap: 10px;
 }
 

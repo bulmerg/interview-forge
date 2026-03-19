@@ -9,13 +9,9 @@ export default function TagPanel({ groupedTags, includeTags, excludeTags, toggle
   return (
     <div className="tag-panel glass">
       <div className="panel-header">
-        <h3>Current study set</h3>
-        <span>Filter by tags</span>
+        <h3>Tags</h3>
+        <span>Click to include · minus to exclude</span>
       </div>
-      <p className="muted small">
-        Click a tag to include it. Use the minus button to exclude it.
-        The number on each row is card count.
-      </p>
       {suspiciousOtherTags.length > 0 ? (
         <div className="tag-panel-warning">
           Some tags look like difficulty/header values ({suspiciousOtherTags.length}).
