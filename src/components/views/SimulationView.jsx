@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import ExpandableText from '../ExpandableText'
+import ReasoningSections from '../ReasoningSections'
 import './SimulationView.scss'
 
 export default function SimulationView({ cards, simCount, setSimCount }) {
@@ -30,32 +30,13 @@ export default function SimulationView({ cards, simCount, setSimCount }) {
             <article key={card.id} className="simulation-card">
               <div className="card-meta">Prompt {index + 1}</div>
               <h4>{card.front}</h4>
-              <div className="chip-row">{card.tags.map(tag => <span key={`${card.id}-${tag}`} className="tiny-chip">{tag}</span>)}</div>
+              <div className="chip-row">{(card.tags || []).map(tag => <span key={`${card.id}-${tag}`} className="tiny-chip">{tag}</span>)}</div>
               <div className="button-row compact top-gap">
                 <button className="btn" onClick={() => toggle(card.id)}>{revealed ? 'Hide answer' : 'Reveal answer'}</button>
               </div>
               {revealed ? (
                 <div className="why-box top-gap">
-                  <strong>Strong answer</strong>
-                  <ExpandableText text={card.back} previewChars={200} modalTitle="Full answer" />
-                  {[
-                    ['why', 'Why it matters', card.why],
-                    ['when', 'When to use', card.when],
-                    ['tradeoffs', 'Tradeoffs', card.tradeoffs],
-                    ['trap', 'Interview trap', card.trap],
-                    ['scenario', 'Scenario', card.scenario],
-                  ]
-                    .filter(([, , text]) => text)
-                    .map(([key, label, text]) => (
-                      <ExpandableText
-                        key={key}
-                        text={text}
-                        className="muted"
-                        label={`${label}:`}
-                        previewChars={220}
-                        modalTitle={label}
-                      />
-                    ))}
+                  <ReasoningSections card={card} />
                 </div>
               ) : null}
             </article>

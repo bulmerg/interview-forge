@@ -26,13 +26,15 @@ function CardRow({ card }) {
     { key: 'tradeoffs', label: 'Tradeoffs', text: card.tradeoffs },
     { key: 'trap', label: 'Interview trap', text: card.trap },
     { key: 'scenario', label: 'Scenario', text: card.scenario },
-  ].filter(item => item.text)
+  ]
+    .map(item => ({ ...item, text: String(item.text ?? '').trim() }))
+    .filter(item => item.text)
 
   return (
     <article className="browser-card" key={card.id}>
       <div className="card-meta-row">
         <div className="card-meta">Question</div>
-        <div className="chip-row">{card.tags.map(tag => <span className="tiny-chip" key={`${card.id}-${tag}`}>{tag}</span>)}</div>
+        <div className="chip-row">{(card.tags || []).map(tag => <span className="tiny-chip" key={`${card.id}-${tag}`}>{tag}</span>)}</div>
       </div>
       <h4>{card.front}</h4>
       <ExpandableText text={card.back} label="Answer:" previewChars={180} modalTitle="Full answer" />

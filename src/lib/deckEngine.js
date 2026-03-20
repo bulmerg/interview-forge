@@ -19,7 +19,11 @@ function normalizeNewlines(text = '') {
 }
 
 function parseTagString(tags = '') {
-  return String(tags).trim().split(/\s+/).filter(Boolean)
+  return String(tags)
+    .trim()
+    .split(/[\s,]+/)
+    .map(tag => tag.trim())
+    .filter(Boolean)
 }
 
 function slugify(value = '') {
@@ -73,8 +77,8 @@ function normalizeHeaderCell(value = '') {
 
 function looksLikeDeckHeader(cells) {
   if (!Array.isArray(cells) || cells.length < 4) return false
-  const [c0, c1, c2, c3] = cells.map(normalizeHeaderCell)
-  return c0 === 'front' && c1 === 'back' && c2 === 'why' && c3 === 'tags'
+  const normalized = new Set(cells.map(normalizeHeaderCell))
+  return normalized.has('front') && normalized.has('back') && normalized.has('why')
 }
 
 function parseIntrinsicDifficulty(rawValue) {
@@ -128,26 +132,26 @@ function repairLikelyFiveColumnMisparse(card) {
 function parseDeckRow(line, headerIndex = null) {
   const cells = parseQuotedCsvLine(line).map(cell => String(cell ?? '').trim())
   if (cells.length >= 4) {
-    const readCell = (name, fallbackIndex, required = true) => {
+    const readCell = (name, fallbackIndex) => {
       if (headerIndex) {
         if (Number.isInteger(headerIndex[name])) {
           return String(cells[headerIndex[name]] ?? '').trim()
         }
-        return required ? String(cells[fallbackIndex] ?? '').trim() : ''
+        return ''
       }
       const idx = fallbackIndex
       return String(cells[idx] ?? '').trim()
     }
     return {
-      front: readCell('front', 0, true),
-      back: readCell('back', 1, true),
-      why: readCell('why', 2, true),
-      tagsText: readCell('tags', 3, true),
-      intrinsicDifficulty: parseIntrinsicDifficulty(readCell('intrinsicdifficulty', 4, false)),
-      when: readCell('when', 5, false),
-      tradeoffs: readCell('tradeoffs', 6, false),
-      trap: readCell('trap', 7, false),
-      scenario: readCell('scenario', 8, false),
+      front: readCell('front', 0),
+      back: readCell('back', 1),
+      why: readCell('why', 2),
+      tagsText: readCell('tags', 3),
+      intrinsicDifficulty: parseIntrinsicDifficulty(readCell('intrinsicdifficulty', 4)),
+      when: readCell('when', 3),
+      tradeoffs: readCell('tradeoffs', 4),
+      trap: readCell('trap', 5),
+      scenario: readCell('scenario', 6),
     }
   }
   const legacy = parseLegacyFourColumnLine(line)
@@ -451,22 +455,22 @@ function escapeCsv(value = '') {
 
 export function deckToCsv(cards, { includeIntrinsicDifficulty = true } = {}) {
   const header = includeIntrinsicDifficulty
-    ? 'Front,Back,Why,Tags,IntrinsicDifficulty,When,Tradeoffs,Trap,Scenario'
-    : 'Front,Back,Why,Tags,When,Tradeoffs,Trap,Scenario'
+    ? 'Front,Back,Why,When,Tradeoffs,Trap,Scenario,Tags,IntrinsicDifficulty'
+    : 'Front,Back,Why,When,Tradeoffs,Trap,Scenario,Tags'
   const rows = cards.map(card => {
     const base = [
       escapeCsv(card.front),
       escapeCsv(card.back),
       escapeCsv(card.why),
-      escapeCsv(card.tags.join(' ')),
+      escapeCsv(card.when ?? ''),
+      escapeCsv(card.tradeoffs ?? ''),
+      escapeCsv(card.trap ?? ''),
+      escapeCsv(card.scenario ?? ''),
+      escapeCsv((card.tags || []).join(' ')),
     ]
     if (includeIntrinsicDifficulty) {
       base.push(escapeCsv(String(card.intrinsicDifficulty ?? 2)))
     }
-    base.push(escapeCsv(card.when ?? ''))
-    base.push(escapeCsv(card.tradeoffs ?? ''))
-    base.push(escapeCsv(card.trap ?? ''))
-    base.push(escapeCsv(card.scenario ?? ''))
     return base.join(',')
   })
   return [header, ...rows].join('\n')

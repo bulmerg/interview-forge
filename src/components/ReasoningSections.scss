@@ -1,0 +1,61 @@
+.reasoning-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reasoning-section {
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.reasoning-section.primary {
+  border-top-color: rgba(110, 168, 254, 0.25);
+}
+
+.reasoning-label {
+  color: rgba(167, 182, 216, 0.82);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  margin-bottom: 6px;
+}
+
+.reasoning-section.primary .reasoning-label {
+  color: #d9e7ff;
+}
+
+.reasoning-section.secondary .reasoning-label {
+  color: rgba(186, 202, 234, 0.9);
+}
+
+.reasoning-section.tertiary .reasoning-label {
+  color: rgba(167, 182, 216, 0.72);
+}
+
+.reasoning-paragraph {
+  margin: 0;
+  color: #deebff;
+  line-height: 1.65;
+}
+
+.reasoning-section.tertiary .reasoning-paragraph {
+  color: rgba(222, 235, 255, 0.9);
+}
+
+.reasoning-list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  color: #deebff;
+}
+
+.reasoning-list li {
+  line-height: 1.55;
+}
+
+.reasoning-section.tertiary .reasoning-list {
+  color: rgba(222, 235, 255, 0.88);
+}
+

@@ -18,10 +18,23 @@ describe('deckEngine', () => {
     expect(cards[0].intrinsicDifficulty).toBe(2)
   })
 
+  it('parses old 5-column CSV with intrinsic difficulty', () => {
+    const csv = [
+      'Front,Back,Why,Tags,IntrinsicDifficulty',
+      '"What is CAP theorem?","Consistency vs availability under partition","Distributed tradeoff","distributed-systems architecture",4',
+    ].join('\n')
+
+    const cards = parseDeckCsv(csv, 'OldFive')
+    expect(cards).toHaveLength(1)
+    expect(cards[0].intrinsicDifficulty).toBe(4)
+    expect(cards[0].when).toBe('')
+    expect(cards[0].tags).toEqual(['distributed-systems', 'architecture'])
+  })
+
   it('parses extended CSV columns by header name', () => {
     const csv = [
-      'Front,Back,Why,Tags,IntrinsicDifficulty,When,Tradeoffs,Trap,Scenario',
-      '"What is CQRS?","Separate reads/writes","Independent scaling","system-design architecture",4,"Read-heavy systems","Added complexity","Mixing models","Design read/write stores"',
+      'Front,Back,Why,When,Tradeoffs,Trap,Scenario,Tags,IntrinsicDifficulty',
+      '"What is CQRS?","Separate reads/writes","Independent scaling","Read-heavy systems","Added complexity","Mixing models","Design read/write stores","system-design architecture",4',
     ].join('\n')
 
     const cards = parseDeckCsv(csv, 'Extended')
@@ -31,6 +44,19 @@ describe('deckEngine', () => {
     expect(cards[0].tradeoffs).toContain('complexity')
     expect(cards[0].trap).toContain('Mixing')
     expect(cards[0].scenario).toContain('read/write')
+    expect(cards[0].tags).toEqual(['system-design', 'architecture'])
+  })
+
+  it('parses tags from tags column only with comma or spaces', () => {
+    const csv = [
+      'Front,Back,Why,When,Tradeoffs,Trap,Scenario,Tags,IntrinsicDifficulty',
+      '"What is caching?","Store hot data","Reduce latency","At read scale","Stale data","No invalidation plan","Product page surge","system-design, caching performance",3',
+    ].join('\n')
+
+    const cards = parseDeckCsv(csv, 'TagParsing')
+    expect(cards).toHaveLength(1)
+    expect(cards[0].tags).toEqual(['system-design', 'caching', 'performance'])
+    expect(cards[0].when).toBe('At read scale')
   })
 
   it('normalizes legacy cards with missing optional fields during dedupe', () => {
@@ -111,7 +137,7 @@ describe('deckEngine', () => {
         intrinsicDifficulty: 4,
       },
     ])
-    expect(csv.split('\n')[0]).toBe('Front,Back,Why,Tags,IntrinsicDifficulty,When,Tradeoffs,Trap,Scenario')
+    expect(csv.split('\n')[0]).toBe('Front,Back,Why,When,Tradeoffs,Trap,Scenario,Tags,IntrinsicDifficulty')
     expect(csv).toContain('"Scenario"')
   })
 })

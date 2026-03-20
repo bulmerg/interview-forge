@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import CardGlows from '../CardGlows'
-import ExpandableText from '../ExpandableText'
 import InfoHint from '../InfoHint'
+import ReasoningSections from '../ReasoningSections'
 import { formatDue, getEffectiveDifficulty, getIntrinsicDifficulty, getPersonalDifficulty } from '../../lib/shared'
 import './StudyView.scss'
 
@@ -16,20 +16,11 @@ export default function StudyView({
   onReview,
   onStar,
   onCardDifficulty,
-  difficultyTargetMin,
-  difficultyTargetMax,
   studyViewMode = 'setup',
   onEnterFocusMode,
 }) {
   const isFocusMode = studyViewMode === 'focus'
   const [revealed, setRevealed] = useState(false)
-  const detailSections = [
-    { key: 'why', label: 'Why it matters', text: activeCard?.why || '' },
-    { key: 'when', label: 'When to use', text: activeCard?.when || '' },
-    { key: 'tradeoffs', label: 'Tradeoffs', text: activeCard?.tradeoffs || '' },
-    { key: 'trap', label: 'Interview trap', text: activeCard?.trap || '' },
-    { key: 'scenario', label: 'Scenario', text: activeCard?.scenario || '' },
-  ].filter(item => item.text)
   const intrinsicDifficulty = getIntrinsicDifficulty(activeCard)
   const effectiveDifficulty = getEffectiveDifficulty(activeCard)
   const personalDifficulty = getPersonalDifficulty(activeCard)
@@ -63,7 +54,7 @@ export default function StudyView({
               <h4>{activeCard.front}</h4>
               {!isFocusMode ? (
                 <>
-                  <div className="chip-row">{activeCard.tags.map(tag => <span className="tiny-chip" key={tag}>{tag}</span>)}</div>
+                  <div className="chip-row">{(activeCard.tags || []).map(tag => <span className="tiny-chip" key={tag}>{tag}</span>)}</div>
                   <div className="study-meta">
                     <button
                       type="button"
@@ -92,22 +83,7 @@ export default function StudyView({
               {!revealed && <div className="hint">Press Reveal answer</div>}
               {revealed && (
                 <div className="answer-block">
-                  <div className="card-meta">Answer</div>
-                  <ExpandableText
-                    text={activeCard.back}
-                    previewChars={220}
-                    modalTitle={`Answer details`}
-                  />
-                  {detailSections.map(section => (
-                    <div className="why-box top-gap" key={section.key}>
-                      <strong>{section.label}</strong>
-                      <ExpandableText
-                        text={section.text}
-                        previewChars={240}
-                        modalTitle={section.label}
-                      />
-                    </div>
-                  ))}
+                  <ReasoningSections card={activeCard} />
                 </div>
               )}
               <div className="study-stats-footer">

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import CardGlows from '../CardGlows'
 import ExpandableText from '../ExpandableText'
+import ReasoningSections from '../ReasoningSections'
 import { answerMatches, shuffle } from '../../lib/shared'
 import './QuizView.scss'
 
@@ -91,13 +92,9 @@ export default function QuizView({ cards }) {
               ) : (
                 <div className="quiz-feedback wrong">
                   <p><strong>Not quite.</strong></p>
-                  {questionType === 'what' && <ExpandableText text={card.back} label="Correct answer:" previewChars={180} modalTitle="Correct answer details" />}
-                  {card.why ? (
-                    <div className="why-box">
-                      <strong>Why it matters</strong>
-                      <ExpandableText text={card.why} previewChars={220} modalTitle="Why it matters" />
-                    </div>
-                  ) : null}
+                  <div className="why-box">
+                    <ReasoningSections card={card} includeAnswer={questionType === 'what'} />
+                  </div>
                 </div>
               )}
               <button type="button" className="btn primary top-gap" onClick={handleNext}>Next question</button>
