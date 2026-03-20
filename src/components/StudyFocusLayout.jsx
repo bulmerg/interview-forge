@@ -13,18 +13,14 @@ export default function StudyFocusLayout({
   return (
     <div className="focus-layout">
       <header className="focus-topbar glass">
-        <div className="focus-title">
-          <div className="eyebrow">InterviewForge</div>
-          <strong>{deckName}</strong>
-        </div>
-
+        <div className="focus-title">{deckName}</div>
+        <div className="focus-progress">{progressLabel}</div>
         <div className="focus-topbar-actions">
-          <span className="focus-progress">{progressLabel}</span>
-          <button type="button" className="btn smallish" onClick={onAdjustPractice}>
-            Adjust Practice
+          <button type="button" className="btn smallish ghost" onClick={onAdjustPractice}>
+            Adjust
           </button>
-          <button type="button" className="btn smallish" onClick={onExitFocusMode}>
-            Exit Focus Mode
+          <button type="button" className="btn smallish ghost" onClick={onExitFocusMode}>
+            Exit
           </button>
         </div>
       </header>

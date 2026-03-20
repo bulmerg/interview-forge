@@ -1,8 +1,7 @@
+import { useEffect, useState } from 'react'
 import CardGlows from '../CardGlows'
 import ExpandableText from '../ExpandableText'
 import InfoHint from '../InfoHint'
-import IntrinsicDifficultyStepper from '../IntrinsicDifficultyStepper'
-import MiniMeta from '../MiniMeta'
 import { formatDue, getEffectiveDifficulty, getIntrinsicDifficulty, getPersonalDifficulty } from '../../lib/shared'
 import './StudyView.scss'
 
@@ -23,6 +22,7 @@ export default function StudyView({
   onEnterFocusMode,
 }) {
   const isFocusMode = studyViewMode === 'focus'
+  const [revealed, setRevealed] = useState(false)
   const detailSections = [
     { key: 'why', label: 'Why it matters', text: activeCard?.why || '' },
     { key: 'when', label: 'When to use', text: activeCard?.when || '' },
@@ -30,6 +30,13 @@ export default function StudyView({
     { key: 'trap', label: 'Interview trap', text: activeCard?.trap || '' },
     { key: 'scenario', label: 'Scenario', text: activeCard?.scenario || '' },
   ].filter(item => item.text)
+  const intrinsicDifficulty = getIntrinsicDifficulty(activeCard)
+  const effectiveDifficulty = getEffectiveDifficulty(activeCard)
+  const personalDifficulty = getPersonalDifficulty(activeCard)
+
+  useEffect(() => {
+    setRevealed(Boolean(flipped))
+  }, [flipped, activeCard?.id])
 
   return (
     <div className={`study-panel glass ${isFocusMode ? 'study-panel-focus' : ''}`}>
@@ -57,22 +64,33 @@ export default function StudyView({
               {!isFocusMode ? (
                 <>
                   <div className="chip-row">{activeCard.tags.map(tag => <span className="tiny-chip" key={tag}>{tag}</span>)}</div>
-                  <div className="meta-grid compact-study">
-                    <IntrinsicDifficultyStepper
-                      value={getIntrinsicDifficulty(activeCard)}
-                      onDelta={onCardDifficulty}
-                      showEffective
-                      effectiveValue={getEffectiveDifficulty(activeCard)}
-                      showPersonal
-                      personalValue={getPersonalDifficulty(activeCard)}
-                    />
-                    <MiniMeta label="Status" value={activeCard.status} />
-                    <MiniMeta label="Schedule" value={formatDue(activeCard.srs?.dueAt || Date.now())} />
+                  <div className="study-meta">
+                    <button
+                      type="button"
+                      className="study-inline-step"
+                      aria-label="Decrease intrinsic difficulty"
+                      onClick={() => onCardDifficulty(-1)}
+                    >
+                      -
+                    </button>
+                    <span>Difficulty: {intrinsicDifficulty} (Eff: {effectiveDifficulty} / Pers: {personalDifficulty})</span>
+                    <span>•</span>
+                    <span>Status: {activeCard.status}</span>
+                    <span>•</span>
+                    <span>Due: {formatDue(activeCard.srs?.dueAt || Date.now())}</span>
+                    <button
+                      type="button"
+                      className="study-inline-step"
+                      aria-label="Increase intrinsic difficulty"
+                      onClick={() => onCardDifficulty(1)}
+                    >
+                      +
+                    </button>
                   </div>
                 </>
               ) : null}
-              {!flipped && <div className="hint">Press Reveal answer</div>}
-              {flipped && (
+              {!revealed && <div className="hint">Press Reveal answer</div>}
+              {revealed && (
                 <div className="answer-block">
                   <div className="card-meta">Answer</div>
                   <ExpandableText
@@ -92,25 +110,36 @@ export default function StudyView({
                   ))}
                 </div>
               )}
-              <div className="meta-grid compact-study top-gap">
-                <MiniMeta label="Seen" value={activeCard.stats?.seen || 0} />
-                <MiniMeta label="Correct" value={activeCard.stats?.correct || 0} />
-                <MiniMeta label="Ease" value={activeCard.srs?.ease || 2.5} />
+              <div className="study-stats-footer">
+                Seen: {activeCard.stats?.seen || 0} • Correct: {activeCard.stats?.correct || 0} • Ease: {activeCard.srs?.ease || 2.5}
               </div>
             </div>
           </div>
 
-          <div className="button-row spread top-gap">
-            <button className="btn" onClick={onPrev}>Previous</button>
-            <button className="btn" onClick={onFlip}>{flipped ? 'Show question' : 'Reveal answer'}</button>
-            <button className="btn" onClick={onNext}>Next</button>
-          </div>
-
-          <div className="review-grid top-gap">
+          <div className="study-actions-primary top-gap">
             <button className="review-btn again" onClick={() => onReview('again')} title="Forgot — reset interval to 15 min">Again</button>
             <button className="review-btn hard" onClick={() => onReview('hard')} title="Struggled — slower interval growth">Hard</button>
             <button className="review-btn good" onClick={() => onReview('good')} title="Solid recall — normal spacing">Good</button>
             <button className="review-btn easy" onClick={() => onReview('easy')} title="Effortless — longer gap before next review">Easy</button>
+          </div>
+
+          <div className="study-actions-secondary top-gap">
+            <button className="btn smallish ghost" onClick={onPrev}>Previous</button>
+            <button
+              className="btn smallish ghost"
+              onClick={() => {
+                if (!revealed) {
+                  setRevealed(true)
+                  onFlip()
+                  return
+                }
+                setRevealed(false)
+                onNext()
+              }}
+            >
+              {revealed ? 'Next' : 'Reveal answer'}
+            </button>
+            <button className="btn smallish ghost" onClick={onNext}>Next</button>
           </div>
 
           {!isFocusMode ? (

@@ -1,14 +1,14 @@
 .focus-layout {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
   width: min(980px, 100%);
   margin: 0 auto;
 }
 
 .focus-topbar {
   border-radius: 18px;
-  padding: 14px 16px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,13 +16,8 @@
 }
 
 .focus-title {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.focus-title .eyebrow {
-  margin-bottom: 0;
+  font-weight: 500;
+  color: rgba(219, 232, 255, 0.92);
 }
 
 .focus-topbar-actions {
@@ -34,10 +29,17 @@
 }
 
 .focus-progress {
-  color: var(--accent-2);
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: rgba(167, 182, 216, 0.8);
+  font-size: 0.8rem;
+}
+
+.focus-topbar .btn.ghost {
+  opacity: 0.78;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.focus-topbar .btn.ghost:hover {
+  opacity: 1;
 }
 
 .focus-main {

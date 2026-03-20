@@ -1,8 +1,8 @@
 .sidebar {
-  padding: 20px;
+  padding: 17px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   max-height: calc(100vh - 40px);
   overflow: auto;
 
@@ -13,10 +13,15 @@
   }
 
   .mini-panel {
-    padding: 12px;
+    padding: 10px;
     border-radius: 18px;
     background: var(--panel-2);
     border: 1px solid var(--line);
+  }
+
+  .label-row {
+    font-weight: 500;
+    color: rgba(167, 182, 216, 0.82);
   }
 
   .sidebar-deck-label {
@@ -65,7 +70,7 @@
 }
 
 .summary-panel {
-  padding: 10px 12px !important;
+  padding: 9px 10px !important;
 }
 
 .summary-stats {
@@ -75,7 +80,7 @@
 }
 
 .summary-stats .stat-box {
-  padding: 8px;
+  padding: 7px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -83,12 +88,12 @@
 }
 
 .summary-stats .stat-box strong {
-  font-size: 1rem;
+  font-size: 0.94rem;
   color: var(--muted);
 }
 
 .summary-stats .stat-box span {
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   color: rgba(167, 182, 216, 0.7);
 }
 

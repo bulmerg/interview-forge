@@ -109,6 +109,11 @@
   padding: 8px 12px;
 }
 
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .btn.danger {
   border-color: rgba(255, 141, 141, 0.45);
   color: #ffd3d3;

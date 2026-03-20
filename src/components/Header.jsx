@@ -26,12 +26,6 @@ export default function Header() {
         <div className="eyebrow">Interview Thinking Trainer</div>
         <h2>{deckName}</h2>
         <p className="muted">Stop memorizing. Start thinking like a senior engineer. {filteredCount} of {cards.length} cards are in your current study set.</p>
-        <div className="start-here-row">
-          <span className="start-here-label">Start here:</span>
-          <button type="button" className="btn smallish" onClick={() => onSetViewMode('study')}>Study</button>
-          <button type="button" className="btn smallish" onClick={() => onSetViewMode('create')}>Create</button>
-          <button type="button" className="btn smallish" onClick={() => onSetViewMode('interview')}>Interview</button>
-        </div>
       </div>
       <ViewModeTabs viewMode={viewMode} onSetViewMode={onSetViewMode} />
     </header>

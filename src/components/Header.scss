@@ -1,5 +1,5 @@
 .hero {
-  padding: 22px 24px;
+  padding: 20px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,19 +9,6 @@
 .sidebar-toggle {
   margin-bottom: 10px;
   align-self: flex-start;
-}
-
-.start-here-row {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.start-here-label {
-  color: var(--muted);
-  font-size: 0.86rem;
 }
 
 .segmented {
