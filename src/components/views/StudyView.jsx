@@ -34,8 +34,8 @@ export default function StudyView({
       {!isFocusMode ? (
         <div className="panel-header">
           <h3>
-            Study mode
-            <InfoHint text="Reveal answer first, then grade recall with Again/Hard/Good/Easy to update scheduling." />
+            Practice
+            <InfoHint text="Attempt an answer first, then reveal a strong answer and grade recall to keep spacing accurate." />
           </h3>
           <div className="study-header-actions">
             <span>{total === 0 ? 'No cards' : `${currentIndex + 1} / ${total}`}</span>
@@ -44,7 +44,7 @@ export default function StudyView({
         </div>
       ) : null}
       {!activeCard ? (
-        <div className="empty-state">No cards match the current filters.</div>
+        <div className="empty-state">No cards match this setup yet. Select a few focus areas or practice all cards.</div>
       ) : (
         <>
           <div className={`flashcard ${flipped ? 'flipped' : ''}`}>
@@ -80,7 +80,7 @@ export default function StudyView({
                   </div>
                 </>
               ) : null}
-              {!revealed && <div className="hint">Press Reveal answer</div>}
+              {!revealed && <div className="hint">Try your answer first, then reveal a strong answer.</div>}
               {revealed && (
                 <div className="answer-block">
                   <ReasoningSections card={activeCard} />
@@ -92,7 +92,7 @@ export default function StudyView({
             </div>
           </div>
 
-          <div className="study-actions-primary top-gap">
+          <div className={`study-actions-primary top-gap ${!revealed ? 'pending-reveal' : ''}`}>
             <button className="review-btn again" onClick={() => onReview('again')} title="Forgot — reset interval to 15 min">Again</button>
             <button className="review-btn hard" onClick={() => onReview('hard')} title="Struggled — slower interval growth">Hard</button>
             <button className="review-btn good" onClick={() => onReview('good')} title="Solid recall — normal spacing">Good</button>
@@ -101,8 +101,19 @@ export default function StudyView({
 
           <div className="study-actions-secondary top-gap">
             <button className="btn smallish ghost" onClick={onPrev}>Previous</button>
+            {!revealed ? (
+              <button
+                className="btn smallish ghost"
+                onClick={() => {
+                  setRevealed(false)
+                  onNext()
+                }}
+              >
+                Skip
+              </button>
+            ) : null}
             <button
-              className="btn smallish ghost"
+              className={revealed ? 'btn smallish' : 'btn smallish primary'}
               onClick={() => {
                 if (!revealed) {
                   setRevealed(true)
@@ -113,9 +124,8 @@ export default function StudyView({
                 onNext()
               }}
             >
-              {revealed ? 'Next' : 'Reveal answer'}
+              {revealed ? 'Next prompt' : 'Reveal strong answer'}
             </button>
-            <button className="btn smallish ghost" onClick={onNext}>Next</button>
           </div>
 
           {!isFocusMode ? (

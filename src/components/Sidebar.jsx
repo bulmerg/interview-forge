@@ -60,7 +60,7 @@ export default function Sidebar() {
             <InfoHint text="Narrow which cards you study right now. This does not delete anything from your deck." />
           </label>
           <p className="muted xsmall">Choose what you want to practice right now.</p>
-          <input value={search} onChange={e => setSearch(e.target.value)} className="input" placeholder="Search questions, answers, tags…" />
+          <input value={search} onChange={e => setSearch(e.target.value)} className="input" placeholder="Search questions, answers, focus areas..." />
           <div className="button-row compact wrap-top filter-row">
             <button className={`btn smallish ${!dueOnly ? 'primary' : ''}`} onClick={() => setDueOnly(false)}>All cards</button>
             <button className={`btn smallish ${dueOnly ? 'primary' : ''}`} onClick={() => setDueOnly(true)}>Due only</button>
@@ -89,7 +89,7 @@ export default function Sidebar() {
         </div>
 
         <details className="utilities-disclosure">
-          <summary className="utilities-summary">Utilities</summary>
+          <summary className="utilities-summary">Utilities (advanced)</summary>
           <div className="utilities-panel">
             <button className="btn smallish utility-btn" onClick={exportFiltered}>Export filtered</button>
             <button className="btn smallish utility-btn" onClick={backupDeck}>Backup CSV</button>

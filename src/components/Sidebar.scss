@@ -116,10 +116,11 @@
 
 .utilities-summary {
   cursor: pointer;
-  color: rgba(167, 182, 216, 0.6);
-  font-size: 0.8rem;
+  color: rgba(167, 182, 216, 0.56);
+  font-size: 0.76rem;
   user-select: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .utilities-disclosure[open] .utilities-summary {
@@ -135,7 +136,7 @@
 .utility-btn {
   font-size: 0.82rem !important;
   padding: 6px 10px !important;
-  opacity: 0.75;
+  opacity: 0.66;
 }
 
 .utility-btn:hover {

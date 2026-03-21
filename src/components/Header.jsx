@@ -25,7 +25,7 @@ export default function Header() {
         </button>
         <div className="eyebrow">Interview Thinking Trainer</div>
         <h2>{deckName}</h2>
-        <p className="muted">Stop memorizing. Start thinking like a senior engineer. {filteredCount} of {cards.length} cards are in your current study set.</p>
+        <p className="muted">Practice explanations, build better cards, and rehearse interviews with intent. {filteredCount} of {cards.length} cards are in your current set.</p>
       </div>
       <ViewModeTabs viewMode={viewMode} onSetViewMode={onSetViewMode} />
     </header>

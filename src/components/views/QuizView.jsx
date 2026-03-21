@@ -49,9 +49,9 @@ export default function QuizView({ cards }) {
     return (
       <div className="study-panel glass">
         <div className="panel-header">
-          <h3>Quiz mode</h3>
+          <h3>Explore cards</h3>
         </div>
-        <div className="empty-state">No cards match the current filters.</div>
+        <div className="empty-state">No cards match this setup yet. Adjust focus areas or practice all cards.</div>
       </div>
     )
   }
@@ -59,7 +59,7 @@ export default function QuizView({ cards }) {
   return (
     <div className="study-panel glass">
       <div className="panel-header">
-        <h3>Quiz mode</h3>
+        <h3>Explore cards</h3>
         <span>{total === 0 ? '' : `${quizIndex + 1} / ${total}`}</span>
       </div>
       <div className="quiz-card" key={quizIndex}>
@@ -70,7 +70,7 @@ export default function QuizView({ cards }) {
           {questionType === 'why' && (
             <div className="quiz-context">
               <ExpandableText text={card.back} label="Answer:" previewChars={170} modalTitle="Full answer" />
-              <p className="quiz-prompt">Why does this matter?</p>
+              <p className="quiz-prompt">Why does this matter in an interview answer?</p>
             </div>
           )}
           {!submitted ? (
@@ -78,26 +78,26 @@ export default function QuizView({ cards }) {
               <input
                 type="text"
                 className="input quiz-input"
-                placeholder={questionType === 'what' ? 'Type your answer…' : 'Explain why it matters…'}
+                placeholder={questionType === 'what' ? 'Type your best answer...' : 'Explain why it matters...'}
                 value={userAnswer}
                 onChange={e => setUserAnswer(e.target.value)}
                 autoFocus
               />
-              <button type="submit" className="btn primary" disabled={!userAnswer.trim()}>Submit</button>
+              <button type="submit" className="btn primary" disabled={!userAnswer.trim()}>Check response</button>
             </form>
           ) : (
             <div className="quiz-result">
               {wasCorrect ? (
-                <p className="quiz-feedback correct">Correct! Well done.</p>
+                <p className="quiz-feedback correct">Strong response.</p>
               ) : (
                 <div className="quiz-feedback wrong">
-                  <p><strong>Not quite.</strong></p>
+                  <p><strong>Not quite yet.</strong></p>
                   <div className="why-box">
                     <ReasoningSections card={card} includeAnswer={questionType === 'what'} />
                   </div>
                 </div>
               )}
-              <button type="button" className="btn primary top-gap" onClick={handleNext}>Next question</button>
+              <button type="button" className="btn primary top-gap" onClick={handleNext}>Next card</button>
             </div>
           )}
         </div>

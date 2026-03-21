@@ -2,17 +2,17 @@ import './HelpView.scss'
 
 const HELP_SECTIONS = [
   {
-    title: 'Study',
+    title: 'Practice',
     points: [
-      'Use Build Study Set filters (tags, due-only, search, difficulty) to focus your session.',
-      'Reveal the answer, then grade with Again/Hard/Good/Easy to drive spaced repetition.',
+      'Use focus-area filters (tags, due-only, search, difficulty) to shape each session.',
+      'Attempt first, then reveal a strong answer and grade with Again/Hard/Good/Easy.',
       'Use Star to mark cards you want to revisit later.',
     ],
   },
   {
-    title: 'Quiz',
+    title: 'Explore cards',
     points: [
-      'Quiz alternates direct answer checks and reasoning prompts when Why is available.',
+      'Explore alternates direct answer checks and reasoning prompts when Why is available.',
       'Use it to rehearse concise interview responses, not just recognition.',
     ],
   },
@@ -39,10 +39,10 @@ const HELP_SECTIONS = [
     ],
   },
   {
-    title: 'Import (Advanced)',
+    title: 'Import utilities',
     points: [
       'Use this for CSV merge/overwrite workflows.',
-      'Starter deck loading and Create are the default MVP workflows.',
+      'Practice and Create are the default day-to-day workflows.',
     ],
   },
 ]
@@ -51,8 +51,8 @@ export default function HelpView() {
   return (
     <div className="help-panel glass">
       <div className="panel-header">
-        <h3>Help and onboarding</h3>
-        <span>Quick guide</span>
+        <h3>InterviewForge guide</h3>
+        <span>Quick orientation</span>
       </div>
       <p className="muted small">
         Practice interview thinking: what, why, when, tradeoffs, traps, and scenario reasoning.

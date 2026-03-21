@@ -13,13 +13,14 @@ export default function SimulationView({ cards, simCount, setSimCount }) {
   return (
     <div className="browser-panel glass">
       <div className="panel-header">
-        <h3>Interview simulation mode</h3>
+        <h3>Interview practice</h3>
         <span>{cards.length} prompts</span>
       </div>
+      <p className="muted small">Speak your answer first, then reveal a strong reference response.</p>
       <div className="button-row compact wrap-top">
         {[8, 12, 20].map(count => (
           <button key={count} className={`pill ${simCount === count ? 'active' : ''}`} onClick={() => setSimCount(count)}>
-            {count} questions
+            {count} prompts
           </button>
         ))}
       </div>
@@ -32,7 +33,7 @@ export default function SimulationView({ cards, simCount, setSimCount }) {
               <h4>{card.front}</h4>
               <div className="chip-row">{(card.tags || []).map(tag => <span key={`${card.id}-${tag}`} className="tiny-chip">{tag}</span>)}</div>
               <div className="button-row compact top-gap">
-                <button className="btn" onClick={() => toggle(card.id)}>{revealed ? 'Hide answer' : 'Reveal answer'}</button>
+                <button className={revealed ? 'btn' : 'btn primary'} onClick={() => toggle(card.id)}>{revealed ? 'Hide response' : 'Reveal strong answer'}</button>
               </div>
               {revealed ? (
                 <div className="why-box top-gap">

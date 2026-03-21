@@ -5,12 +5,18 @@ export default function TagPanel({ groupedTags, includeTags, excludeTags, toggle
   const suspiciousOtherTags = (otherGroup?.[1] || []).filter(
     item => /^\d+$/.test(String(item.tag)) || /difficulty/i.test(String(item.tag)),
   )
+  const selectedCount = includeTags.length
+  const excludedCount = excludeTags.length
 
   return (
     <div className="tag-panel glass">
       <div className="panel-header">
-        <h3>Tags</h3>
-        <span>Click to include · minus to exclude</span>
+        <h3>Focus areas</h3>
+        <span>Select focus areas · minus to exclude</span>
+      </div>
+      <div className="tag-summary" role="status" aria-live="polite">
+        <span className="tag-summary-pill include">Selected: {selectedCount}</span>
+        <span className="tag-summary-pill exclude">Excluded: {excludedCount}</span>
       </div>
       {suspiciousOtherTags.length > 0 ? (
         <div className="tag-panel-warning">
@@ -19,6 +25,9 @@ export default function TagPanel({ groupedTags, includeTags, excludeTags, toggle
         </div>
       ) : null}
       <div className="active-filters">
+        {selectedCount === 0 && excludedCount === 0 ? (
+          <span className="active-filters-empty">No focus filters yet</span>
+        ) : null}
         {includeTags.map(tag => (
           <span key={`i-${tag}`} className="filter-chip include">+ {tag}</span>
         ))}
@@ -27,41 +36,52 @@ export default function TagPanel({ groupedTags, includeTags, excludeTags, toggle
         ))}
       </div>
       <div className="tag-groups-scroll">
-        {groupedTags.map(([groupName, tags]) => (
-          <section
-            key={groupName}
-            className={`tag-group-block ${tags.every(({ tag }) => includeTags.includes(tag)) ? 'group-selected' : ''}`}
-          >
-            <div className="tag-group-head">
-              <button
-                type="button"
-                className="tag-group-title-btn"
-                onClick={() => toggleTagGroup(tags.map(item => item.tag), 'include')}
-                title="Include all tags in this group"
-              >
-                {groupName}
-              </button>
-              <span className="tag-group-count">
-                {tags.length} tags
-              </span>
-            </div>
-            <div className="tag-cloud">
-              {tags.map(({ tag, count }) => {
-                const include = includeTags.includes(tag)
-                const exclude = excludeTags.includes(tag)
-                return (
-                  <div key={tag} className={`tag-card ${include ? 'include' : ''} ${exclude ? 'exclude' : ''}`}>
-                    <button className="tag-main" onClick={() => toggleTag(tag, 'include')}>
-                      <span>{tag}</span>
-                      <strong>{count}</strong>
-                    </button>
-                    <button className="tag-minus" onClick={() => toggleTag(tag, 'exclude')}>−</button>
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-        ))}
+        {groupedTags.map(([groupName, tags]) => {
+          const groupTagNames = tags.map(item => item.tag)
+          const includedInGroup = groupTagNames.filter(tag => includeTags.includes(tag)).length
+          const excludedInGroup = groupTagNames.filter(tag => excludeTags.includes(tag)).length
+          const groupSize = groupTagNames.length
+          const allIncluded = groupSize > 0 && includedInGroup === groupSize
+          const mostlyIncluded = !allIncluded && groupSize > 0 && includedInGroup >= Math.ceil(groupSize * 0.6)
+          const partiallyIncluded = !allIncluded && includedInGroup > 0
+
+          return (
+            <section
+              key={groupName}
+              className={`tag-group-block ${allIncluded ? 'group-selected' : ''} ${mostlyIncluded ? 'group-mostly' : ''} ${partiallyIncluded ? 'group-partial' : ''} ${excludedInGroup > 0 ? 'group-has-excluded' : ''}`}
+            >
+              <div className="tag-group-head">
+                <button
+                  type="button"
+                  className="tag-group-title-btn"
+                  onClick={() => toggleTagGroup(groupTagNames, 'include')}
+                  title="Include all tags in this group"
+                >
+                  {groupName}
+                </button>
+                <span className="tag-group-count">
+                  {includedInGroup > 0 ? `${includedInGroup}/${groupSize} selected` : `${groupSize} tags`}
+                  {excludedInGroup > 0 ? ` · ${excludedInGroup} excluded` : ''}
+                </span>
+              </div>
+              <div className="tag-cloud">
+                {tags.map(({ tag, count }) => {
+                  const include = includeTags.includes(tag)
+                  const exclude = excludeTags.includes(tag)
+                  return (
+                    <div key={tag} className={`tag-card ${include ? 'include' : ''} ${exclude ? 'exclude' : ''} ${!include && !exclude ? 'neutral' : ''}`}>
+                      <button className="tag-main" onClick={() => toggleTag(tag, 'include')} title={`Include ${tag}`}>
+                        <span className="tag-label">{tag}</span>
+                        <strong className="tag-count">{count}</strong>
+                      </button>
+                      <button className="tag-minus" onClick={() => toggleTag(tag, 'exclude')} title={`Exclude ${tag}`} aria-label={`Exclude ${tag}`}>−</button>
+                    </div>
+                  )
+                })}
+              </div>
+            </section>
+          )
+        })}
       </div>
     </div>
   )

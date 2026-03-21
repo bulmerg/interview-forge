@@ -12,15 +12,17 @@
   width: 18px;
   height: 18px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.32);
-  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(167, 182, 216, 0.74);
   font-size: 0.72rem;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: help;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  opacity: 0.62;
+  transition: opacity 0.15s ease, border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 
 .info-hint-tooltip {
@@ -46,6 +48,14 @@
 .info-hint:hover .info-hint-tooltip,
 .info-hint:focus-visible .info-hint-tooltip {
   opacity: 1;
+}
+
+.info-hint:hover .info-hint-icon,
+.info-hint:focus-visible .info-hint-icon {
+  opacity: 1;
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .label-row {

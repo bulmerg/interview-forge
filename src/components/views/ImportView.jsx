@@ -17,20 +17,20 @@ export default function ImportView({
     <div className="import-panel glass">
       <div className="panel-header">
         <h3>
-          Advanced import
-          <InfoHint text="Use this when bringing external CSV decks. For normal MVP use, prefer Starter + Create." />
+          Import utilities
+          <InfoHint text="Use this when bringing external CSV decks. For everyday flow, use Practice and Create first." />
         </h3>
-        <span>Optional CSV merge tools</span>
+        <span>Optional CSV merge and restore tools</span>
       </div>
 
       <p className="muted small">
-        Starter cards are already available. Use import only when you want to merge or overwrite with your own CSV decks.
+        Starter cards are already available. Use this section when you need migration, merge, or external CSV workflows.
       </p>
 
       <div className="mini-panel import-box">
         <label className="label">Starter deck</label>
         <div className="button-row compact">
-          <button type="button" className="btn smallish" onClick={loadSamples}>Reload starter deck</button>
+          <button type="button" className="btn smallish ghost" onClick={loadSamples}>Reload starter deck</button>
         </div>
       </div>
 
@@ -48,7 +48,7 @@ export default function ImportView({
         <input value={sourceName} onChange={e => setSourceName(e.target.value)} className="input" placeholder="Deck name" />
         <textarea value={sourceText} onChange={e => setSourceText(e.target.value)} className="textarea" placeholder="Paste CSV with headers..." />
         <div className="button-row">
-          <button type="button" className="btn primary" onClick={ingestText}>Import text</button>
+          <button type="button" className="btn smallish" onClick={ingestText}>Import text</button>
         </div>
       </div>
     </div>

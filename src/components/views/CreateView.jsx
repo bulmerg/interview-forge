@@ -200,20 +200,20 @@ export default function CreateView({ onAddCards, onMessage }) {
   }
 
   const TABS = [
-    ['generate', 'Generate from Topic'],
-    ['notes', 'Paste Notes'],
-    ['guided', 'Guided Topic'],
-    ['single', 'Create Manually'],
+    ['generate', 'Generate cards'],
+    ['notes', 'From notes'],
+    ['guided', 'Guided build'],
+    ['single', 'Single card'],
   ]
 
   return (
     <div className="create-panel glass">
       <div className="panel-header">
         <h3>
-          Create cards
-          <InfoHint text="Generate interview-focused cards from a topic, or build them manually." />
+          Create interview cards
+          <InfoHint text="Create cards from topics or notes, then refine each answer for interview quality." />
         </h3>
-        <span>Turn concepts into interview-ready explanations</span>
+        <span>Build prompts that train explanation and tradeoff thinking</span>
       </div>
 
       <div className="segmented wrap-tabs">
@@ -227,7 +227,7 @@ export default function CreateView({ onAddCards, onMessage }) {
       {createMode === 'generate' ? (
         <section className="create-section top-gap">
           <div className="create-hint muted small">
-            Start with a concept. We'll generate interview-focused cards with placeholders that you can edit before saving.
+            Start with a concept. Generate draft cards quickly, then edit them into strong interview answers.
           </div>
           <input
             className="input"
@@ -247,7 +247,7 @@ export default function CreateView({ onAddCards, onMessage }) {
           <DraftList
             drafts={quickDrafts}
             setDrafts={setQuickDrafts}
-            title="Generated cards"
+            title="Generated drafts"
             onSaveSelected={() => saveDraftSelection(quickDrafts, setQuickDrafts)}
           />
         </section>
@@ -256,7 +256,7 @@ export default function CreateView({ onAddCards, onMessage }) {
       {createMode === 'notes' ? (
         <section className="create-section top-gap">
           <div className="create-hint muted small">
-            Paste bullets with enough substance. Cards are drafted where notes have clear signal.
+            Paste notes with enough substance. Cards are drafted where your reasoning signal is clear.
             <InfoHint text="Best results include a definition plus why/when/tradeoff wording in the notes." />
           </div>
           <textarea
@@ -286,7 +286,7 @@ export default function CreateView({ onAddCards, onMessage }) {
       {createMode === 'guided' ? (
         <section className="create-section top-gap">
           <div className="create-hint muted small">
-            Fill in structured fields for more control over generated cards.
+            Fill in structured fields for more control over your interview framing.
             <InfoHint text="Guided Topic uses only your form input. It does not fetch external facts." />
           </div>
           <div className="create-grid">
@@ -300,12 +300,12 @@ export default function CreateView({ onAddCards, onMessage }) {
             <textarea className="textarea" value={guided.scenario} onChange={e => setGuided(prev => ({ ...prev, scenario: e.target.value }))} placeholder="Optional scenario" />
           </div>
           <div className="button-row">
-            <button type="button" className="btn primary" onClick={generateGuidedDrafts}>Generate draft cards</button>
+            <button type="button" className="btn primary" onClick={generateGuidedDrafts}>Generate drafts</button>
           </div>
           <DraftList
             drafts={guidedDrafts}
             setDrafts={setGuidedDrafts}
-            title="Guided topic drafts"
+            title="Guided drafts"
             onSaveSelected={() => saveDraftSelection(guidedDrafts, setGuidedDrafts)}
           />
         </section>
@@ -314,7 +314,7 @@ export default function CreateView({ onAddCards, onMessage }) {
       {createMode === 'single' ? (
         <section className="create-section top-gap">
           <div className="create-hint muted small">
-            Full control over a single card when you know the exact prompt.
+            Full control when you already know the exact interview prompt.
             <InfoHint text="Only Front and Back are required; other interview fields are optional but recommended." />
           </div>
           <div className="create-grid">
@@ -338,7 +338,7 @@ export default function CreateView({ onAddCards, onMessage }) {
             </div>
           </div>
           <div className="button-row">
-            <button type="button" className="btn primary" onClick={saveSingleCard}>Save card</button>
+            <button type="button" className="btn primary" onClick={saveSingleCard}>Add card</button>
           </div>
         </section>
       ) : null}
