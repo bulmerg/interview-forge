@@ -43,6 +43,11 @@ export default function useDeckImport({ cards, setCards }) {
   }
 
   async function loadSamples(sampleFiles) {
+    if (!Array.isArray(sampleFiles) || sampleFiles.length === 0) {
+      setMessage('No starter CSV files were found in /data.')
+      return
+    }
+
     try {
       const texts = await Promise.all(sampleFiles.map(path => fetch(path).then(r => r.text())))
       const imported = dedupeCards(texts.flatMap((text, idx) => parseDeckCsv(text, `Sample Batch ${idx + 1}`)))

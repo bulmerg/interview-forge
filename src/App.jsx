@@ -27,7 +27,9 @@ import useDeckImport from './hooks/useDeckImport'
 import useStudySession from './hooks/useStudySession'
 import useDifficultyFilters from './hooks/useDifficultyFilters'
 
-const INITIAL_SAMPLE_FILE = '/data/initial_cards.csv'
+const SAMPLE_CSV_FILES = Object.keys(import.meta.glob('../public/data/*.csv'))
+  .map(path => path.replace('../public', ''))
+  .sort()
 
 export default function App() {
   const [cards, setCards] = useState([])
@@ -114,7 +116,7 @@ export default function App() {
         setCards(dedupeCards(saved.cards))
         if (saved.deckName) setDeckName(saved.deckName)
       } else {
-        await loadSamples([INITIAL_SAMPLE_FILE])
+        await loadSamples(SAMPLE_CSV_FILES)
       }
       if (!cancelled) setHasHydrated(true)
     })()
@@ -288,7 +290,7 @@ export default function App() {
     sourceText,
     setSourceText,
     ingestText,
-    loadSamples: () => loadSamples([INITIAL_SAMPLE_FILE]),
+    loadSamples: () => loadSamples(SAMPLE_CSV_FILES),
     search,
     setSearch,
     dueOnly,
@@ -392,7 +394,7 @@ export default function App() {
                 sourceText={sourceText}
                 setSourceText={setSourceText}
                 ingestText={ingestText}
-                loadSamples={() => loadSamples([INITIAL_SAMPLE_FILE])}
+                loadSamples={() => loadSamples(SAMPLE_CSV_FILES)}
               />
             )}
 
